@@ -1,6 +1,6 @@
 /**
- * [Succeed] 穷举实现，1648ms 较慢
- * 结论：穷举耗时过长，可优化
+ * [Succeed] 穷举优化实现，148ms
+ * 结论：indexOf 较快，可用于取代循环找值
  */
 /**
  * @param {number[]} nums
@@ -19,11 +19,8 @@ var twoSum = function (nums, target) {
  */
 var checkSum = function (nums, target, index) {
   var now = nums.shift()
-  var result = -1
-  nums.forEach(function (element, i) {
-    if (now + element === target) result = i
-  })
-  return result === -1 ? checkSum(nums, target, index + 1) : [index, index + result + 1]
+  var res = nums.indexOf(target - now)
+  return res === -1 ? checkSum(nums, target, index + 1) : [index, index + res + 1]
 }
 
 console.log(twoSum([2, 11, 7], 9))
